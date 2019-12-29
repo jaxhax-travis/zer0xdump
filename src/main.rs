@@ -111,9 +111,12 @@ fn hexdump(buffer: Vec<u8>, matches: ArgMatches) {
     let mut gy = "\x1b[30;1m";
     let mut r = "\x1b[31m";
     let mut gn = "\x1b[32m";
+    #[cfg(target_os = "linux")]
+    let mut b = "\x1b[34;1m";
+    #[cfg(target_os = "windows")]
     let mut b = "\x1b[34m";
     let mut n = "\x1b[0m";
-    let mut w = "\x1b[37;1m";
+    let mut bold = "\x1b[0;1m";
 
     /////////////////////////////////////////////////////////////////
     // Clear color codes if user specified --no-color switch.
@@ -124,7 +127,7 @@ fn hexdump(buffer: Vec<u8>, matches: ArgMatches) {
         gn = "";
         b = "";
         n = "";
-        w = "";
+        bold = "\x1b[0;1m";
     }
 
     /////////////////////////////////////////////////////////////////
@@ -152,7 +155,7 @@ fn hexdump(buffer: Vec<u8>, matches: ArgMatches) {
         /////////////////////////////////////////////////////////////
         if line_len == 0 {
             hex_bytes = String::from(" ");
-            hex_text = format!("{}│{}", w, n);
+            hex_text = format!("{} │{}", bold, n);
             offset_text = format!("{}{:08x} ", n, i);
         } else if line_len % 4 == 0 {
             /////////////////////////////////////////////////////////
@@ -189,7 +192,7 @@ fn hexdump(buffer: Vec<u8>, matches: ArgMatches) {
         line_len += 1;
 
         if line_len == width {
-            hex_text = format!("{}{}│", hex_text, w);
+            hex_text = format!("{}{}│", hex_text, bold);
             let curr_line = format!("{}{}", hex_bytes, hex_text);
             if curr_line != prev_line {
                 println!("{}{}", offset_text, curr_line);
@@ -217,7 +220,7 @@ fn hexdump(buffer: Vec<u8>, matches: ArgMatches) {
                 print!("   ");
                 line_len += 1;
             }
-            hex_text = format!("{}{}│{}", hex_text, w, n);
+            hex_text = format!("{}{}│{}", hex_text, bold, n);
             println!("{}", hex_text);
         }
     }
