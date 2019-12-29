@@ -9,6 +9,12 @@ However it is worth noting that this application will be in the ballpark of 791 
 
 ## Installation
 
+### Binary Release (Windows)
+A pre-compiled version of the application in a zip file can be found in the `release` tab on this repository.
+
+### Build From Source (Windows)
+The application can be built using `cargo build --release`. The resulting binary will be found in target/release/.
+
 ### Build From Source (Linux)
 A make file is included in this repo. This will build the binary for release and run strip against it to reduce the binary size.
 
@@ -16,9 +22,6 @@ A make file is included in this repo. This will build the binary for release and
 `make`
 2. Install 0xdump:
 `make install`
-
-### Build From Source (Windows)
-The application can be built using `cargo build --release`. The resulting binary will be found in target/release/.
 
 # Color Coding Bytes
 This application uses the following formatting for coloring bytes in the hex dump
