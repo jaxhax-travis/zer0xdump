@@ -1,0 +1,13 @@
+[package]
+name = "0xdump"
+version = "0.1.0"
+authors = ["Travis Phillips"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "2.33.0", optional = false }
+
+[target.'cfg(windows)'.dependencies]
+ansi_term = "0.12"
