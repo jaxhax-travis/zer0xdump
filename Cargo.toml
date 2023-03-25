@@ -1,6 +1,6 @@
 [package]
-name = "0xdump"
-version = "0.1.0"
+name = "zer0xdump"
+version = "0.1.1"
 authors = ["Travis Phillips"]
 edition = "2018"
 
@@ -9,5 +9,9 @@ edition = "2018"
 [dependencies]
 clap = { version = "2.33.0", optional = false }
 
-[target.'cfg(windows)'.dependencies]
-ansi_term = "0.12"
+[profile.release]
+strip = true
+opt-level = "z"  # Optimize for size.
+lto = true
+codegen-units = 1
+panic = "abort"

@@ -1,22 +1,15 @@
 use std::io;
 use std::fs::File;
 use std::path::Path;
-use std::error::Error;
 use std::io::prelude::*;
 use clap::{Arg, App, ArgMatches};
 
 fn main() {
     /////////////////////////////////////////////////////////////
-    // Enable colored output on windows
-    /////////////////////////////////////////////////////////////
-    #[cfg(target_os = "windows")]
-    let _enabled = ansi_term::enable_ansi_support();
-    
-    /////////////////////////////////////////////////////////////
     // Parse arguments
     /////////////////////////////////////////////////////////////
     let matches = App::new("0xdump")
-        .version("v1.0")
+        .version("v1.1")
         .about("Hexdump similar to pwntools phd tool.")
         .author("Travis Phillips")
     .arg(Arg::with_name("skip")
@@ -79,7 +72,7 @@ fn read_file(matches: &ArgMatches) -> Vec<u8> {
     let path = Path::new(matches.value_of("file").unwrap());
     let display = path.display();
     let mut file = match File::open(&path) {
-        Err(why) => panic!("couldn't open {}: {}", display, why.description()),
+        Err(why) => panic!("couldn't open {}: {}", display, why.to_string()),
         Ok(file) => file,
     };
     let mut buffer = Vec::new();
